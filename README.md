@@ -6,3 +6,9 @@ Things to do:
 - push data into database
 - make web UI
 - PROFIT
+
+More things to do:
+- add RYG ratings
+- add weather forecasts
+- interpret weather forecasts' impact
+- PROFIT SOME MORE
