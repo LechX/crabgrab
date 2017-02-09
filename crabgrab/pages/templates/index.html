@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crab Tides</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <div id="header">
+        <h3>Crab Tides, your home for forecasted crabbing conditions</h3>
+        <form>
+            Location: &nbsp;
+            <select id="location_list">
+                <option value="Brighton">Brighton</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Month: &nbsp;
+            <select id="month_list">
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Months to display: &nbsp;
+            <select id="forecast_length">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" onsubmit="return select_display()">
+        </form>
+        <p>Current tide information displayed for {{ current_location }}</p>
+    </div>
+
+    <div id="container">
+        {{ cal | safe }}
+    </div>
+
+    <div id="footer">
+        <p id="copyright">&copy; Lech X. Kaiel 2017</p>
+    </div>
+
+    <script>
+
+        function select_display() {
+            var location = document.getElementById("location_list").value;
+            var month = document.getElementById("month_list").value;
+            var forecast = document.getElementById("forecast_length").value;
+
+            var target = 'localhost:8000/' + location + '/2017/' + month + '/' + forecast + '/';
+
+            console.log(target);
+
+            window.location.replace(target);
+
+            return false;
+        }
+
+    </script>
+
+</body>
+</html>
