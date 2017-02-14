@@ -32,7 +32,7 @@ def parse_xml(raw_data):
             items[i].append(float(items[i][1]) - float(items[i+1][1]) < GOOD_LEVEL)
         else:
             items[i].append("N/A LOW TIDE")
-        change = round(float(items[i][1]) - float(items[i+1][1]), 1)
+        change = round(float(items[i][1]) - float(items[i-1][1]), 1)
         items[i].append(change)
     return items
 

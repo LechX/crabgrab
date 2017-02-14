@@ -1,6 +1,6 @@
 body, html {
     margin: 0;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
 }
 
 html {
@@ -30,8 +30,13 @@ html {
     align-items: center;
 }
 
-#footer {
+a {
+    text-decoration: none;
     color: gray;
+    border-bottom: 1px dotted gray;
+}
+
+#footer {
     text-align: center;
     padding: 5px;
 }
@@ -93,15 +98,14 @@ th.sun {
 }
 
 .good {
-    background: #FFD700;
+    background: limegreen;
     color: black;
 }
 
 .moderate {
-    background: #C0C0C0;
-    color: black;
+    background: seagreen;
 }
 
 .poor {
-    background: #CD7F32;
+
 }

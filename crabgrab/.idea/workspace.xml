@@ -18,63 +18,28 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/crabgrab/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="882">
+            <state relative-caret-position="1905">
               <caret line="127" column="0" lean-forward="false" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="563">
-              <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-              <folding>
-                <element signature="e#329#335#0#HTML" expanded="true" />
-                <element signature="e#469#475#0#HTML" expanded="true" />
-                <element signature="e#475#481#0#HTML" expanded="true" />
-                <element signature="e#481#487#0#HTML" expanded="true" />
-                <element signature="e#487#493#0#HTML" expanded="true" />
-                <element signature="e#493#499#0#HTML" expanded="true" />
-                <element signature="e#499#505#0#HTML" expanded="true" />
-                <element signature="e#505#511#0#HTML" expanded="true" />
-                <element signature="e#511#517#0#HTML" expanded="true" />
-                <element signature="e#517#523#0#HTML" expanded="true" />
-                <element signature="e#523#529#0#HTML" expanded="true" />
-                <element signature="e#549#555#0#HTML" expanded="true" />
-                <element signature="e#970#976#0#HTML" expanded="true" />
-                <element signature="e#976#982#0#HTML" expanded="true" />
-                <element signature="e#982#988#0#HTML" expanded="true" />
-                <element signature="e#988#994#0#HTML" expanded="true" />
-                <element signature="e#994#1000#0#HTML" expanded="true" />
-                <element signature="e#1000#1006#0#HTML" expanded="true" />
-                <element signature="e#1006#1012#0#HTML" expanded="true" />
-                <element signature="e#1012#1018#0#HTML" expanded="true" />
-                <element signature="e#1018#1024#0#HTML" expanded="true" />
-                <element signature="e#1024#1030#0#HTML" expanded="true" />
-                <element signature="e#1062#1068#0#HTML" expanded="true" />
-                <element signature="e#1325#1331#0#HTML" expanded="true" />
-                <element signature="e#1331#1337#0#HTML" expanded="true" />
-                <element signature="e#1337#1343#0#HTML" expanded="true" />
-                <element signature="e#1343#1349#0#HTML" expanded="true" />
-                <element signature="e#1349#1355#0#HTML" expanded="true" />
-                <element signature="e#1355#1361#0#HTML" expanded="true" />
-                <element signature="e#1361#1367#0#HTML" expanded="true" />
-                <element signature="e#1367#1373#0#HTML" expanded="true" />
-                <element signature="e#1373#1379#0#HTML" expanded="true" />
-                <element signature="e#1379#1385#0#HTML" expanded="true" />
-                <element signature="e#1670#1676#0#HTML" expanded="true" />
-              </folding>
+            <state relative-caret-position="735">
+              <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="styles.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/css/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="195">
+              <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -83,7 +48,7 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
+            <state relative-caret-position="1365">
               <caret line="91" column="45" lean-forward="false" selection-start-line="91" selection-start-column="45" selection-end-line="91" selection-end-column="45" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
@@ -96,7 +61,7 @@
         <entry file="file://$PROJECT_DIR$/crabgrab/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
-              <caret line="24" column="67" lean-forward="true" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
+              <caret line="24" column="67" lean-forward="false" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
               <folding>
                 <element signature="e#642#674#0" expanded="true" />
               </folding>
@@ -120,8 +85,8 @@
         <option value="$PROJECT_DIR$/crabgrab/settings.py" />
         <option value="$PROJECT_DIR$/crabgrab/urls.py" />
         <option value="$PROJECT_DIR$/pages/views.py" />
-        <option value="$PROJECT_DIR$/static/css/styles.css" />
         <option value="$PROJECT_DIR$/pages/templates/index.html" />
+        <option value="$PROJECT_DIR$/static/css/styles.css" />
       </list>
     </option>
   </component>
@@ -152,6 +117,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -262,7 +228,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -554,9 +519,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1280" height="774" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -597,44 +562,97 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1365">
+          <caret line="91" column="45" lean-forward="false" selection-start-line="91" selection-start-column="45" selection-end-line="91" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crabgrab/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="67" lean-forward="false" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
+          <folding>
+            <element signature="e#642#674#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crabgrab/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1905">
+          <caret line="127" column="0" lean-forward="false" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1305">
+          <caret line="91" column="45" lean-forward="false" selection-start-line="91" selection-start-column="45" selection-end-line="91" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crabgrab/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="24" column="67" lean-forward="true" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
+          <folding>
+            <element signature="e#642#674#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crabgrab/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1905">
+          <caret line="127" column="0" lean-forward="false" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
-          <folding>
-            <element signature="e#329#335#0#HTML" expanded="true" />
-            <element signature="e#469#475#0#HTML" expanded="true" />
-            <element signature="e#475#481#0#HTML" expanded="true" />
-            <element signature="e#481#487#0#HTML" expanded="true" />
-            <element signature="e#487#493#0#HTML" expanded="true" />
-            <element signature="e#493#499#0#HTML" expanded="true" />
-            <element signature="e#499#505#0#HTML" expanded="true" />
-            <element signature="e#505#511#0#HTML" expanded="true" />
-            <element signature="e#511#517#0#HTML" expanded="true" />
-            <element signature="e#517#523#0#HTML" expanded="true" />
-            <element signature="e#523#529#0#HTML" expanded="true" />
-            <element signature="e#549#555#0#HTML" expanded="true" />
-            <element signature="e#970#976#0#HTML" expanded="true" />
-            <element signature="e#976#982#0#HTML" expanded="true" />
-            <element signature="e#982#988#0#HTML" expanded="true" />
-            <element signature="e#988#994#0#HTML" expanded="true" />
-            <element signature="e#994#1000#0#HTML" expanded="true" />
-            <element signature="e#1000#1006#0#HTML" expanded="true" />
-            <element signature="e#1006#1012#0#HTML" expanded="true" />
-            <element signature="e#1012#1018#0#HTML" expanded="true" />
-            <element signature="e#1018#1024#0#HTML" expanded="true" />
-            <element signature="e#1024#1030#0#HTML" expanded="true" />
-            <element signature="e#1062#1068#0#HTML" expanded="true" />
-            <element signature="e#1325#1331#0#HTML" expanded="true" />
-            <element signature="e#1331#1337#0#HTML" expanded="true" />
-            <element signature="e#1337#1343#0#HTML" expanded="true" />
-            <element signature="e#1343#1349#0#HTML" expanded="true" />
-            <element signature="e#1349#1355#0#HTML" expanded="true" />
-            <element signature="e#1355#1361#0#HTML" expanded="true" />
-            <element signature="e#1361#1367#0#HTML" expanded="true" />
-            <element signature="e#1367#1373#0#HTML" expanded="true" />
-            <element signature="e#1373#1379#0#HTML" expanded="true" />
-            <element signature="e#1379#1385#0#HTML" expanded="true" />
-            <element signature="e#1670#1676#0#HTML" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -676,7 +694,7 @@
     <entry file="file://$PROJECT_DIR$/../../portfolioLechXK/portfolio/manage.py" />
     <entry file="file://$PROJECT_DIR$/crabgrab/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="882">
+        <state relative-caret-position="1905">
           <caret line="127" column="0" lean-forward="false" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
           <folding />
         </state>
@@ -685,7 +703,7 @@
     <entry file="file://$PROJECT_DIR$/crabgrab/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
-          <caret line="24" column="67" lean-forward="true" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
+          <caret line="24" column="67" lean-forward="false" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
           <folding>
             <element signature="e#642#674#0" expanded="true" />
           </folding>
@@ -694,7 +712,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
+        <state relative-caret-position="1365">
           <caret line="91" column="45" lean-forward="false" selection-start-line="91" selection-start-column="45" selection-end-line="91" selection-end-column="45" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
@@ -702,54 +720,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/styles.css">
+    <entry file="file://$PROJECT_DIR$/pages/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="735">
+          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/pages/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding>
-            <element signature="e#329#335#0#HTML" expanded="true" />
-            <element signature="e#469#475#0#HTML" expanded="true" />
-            <element signature="e#475#481#0#HTML" expanded="true" />
-            <element signature="e#481#487#0#HTML" expanded="true" />
-            <element signature="e#487#493#0#HTML" expanded="true" />
-            <element signature="e#493#499#0#HTML" expanded="true" />
-            <element signature="e#499#505#0#HTML" expanded="true" />
-            <element signature="e#505#511#0#HTML" expanded="true" />
-            <element signature="e#511#517#0#HTML" expanded="true" />
-            <element signature="e#517#523#0#HTML" expanded="true" />
-            <element signature="e#523#529#0#HTML" expanded="true" />
-            <element signature="e#549#555#0#HTML" expanded="true" />
-            <element signature="e#970#976#0#HTML" expanded="true" />
-            <element signature="e#976#982#0#HTML" expanded="true" />
-            <element signature="e#982#988#0#HTML" expanded="true" />
-            <element signature="e#988#994#0#HTML" expanded="true" />
-            <element signature="e#994#1000#0#HTML" expanded="true" />
-            <element signature="e#1000#1006#0#HTML" expanded="true" />
-            <element signature="e#1006#1012#0#HTML" expanded="true" />
-            <element signature="e#1012#1018#0#HTML" expanded="true" />
-            <element signature="e#1018#1024#0#HTML" expanded="true" />
-            <element signature="e#1024#1030#0#HTML" expanded="true" />
-            <element signature="e#1062#1068#0#HTML" expanded="true" />
-            <element signature="e#1325#1331#0#HTML" expanded="true" />
-            <element signature="e#1331#1337#0#HTML" expanded="true" />
-            <element signature="e#1337#1343#0#HTML" expanded="true" />
-            <element signature="e#1343#1349#0#HTML" expanded="true" />
-            <element signature="e#1349#1355#0#HTML" expanded="true" />
-            <element signature="e#1355#1361#0#HTML" expanded="true" />
-            <element signature="e#1361#1367#0#HTML" expanded="true" />
-            <element signature="e#1367#1373#0#HTML" expanded="true" />
-            <element signature="e#1373#1379#0#HTML" expanded="true" />
-            <element signature="e#1379#1385#0#HTML" expanded="true" />
-            <element signature="e#1670#1676#0#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
