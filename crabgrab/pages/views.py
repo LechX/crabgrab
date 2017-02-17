@@ -14,7 +14,7 @@ def index(request, loc, yr, mnt, dur):
     themonth = int(mnt)  # replace with month from view definition
 
     scriptpath = os.path.dirname(__file__)
-    filename = os.path.join(scriptpath, 'brighton_list_ss_sr_test.txt')  # replace with path to location data in database
+    filename = os.path.join(scriptpath, 'big_test.txt')  # replace with path to location data in database
     tide_file = open(filename, "rb")
     tide_data = pickle.load(tide_file)
 

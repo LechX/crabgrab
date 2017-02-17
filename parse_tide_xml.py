@@ -109,10 +109,18 @@ def parse_xml(raw_data, latitude, longitude):
 
 brighton_latitude = '+45.6700'
 brighton_longitude = '-123.9250'
+brighton_id = '9437815'
+station_id = brighton_id
 
-annual_forecast = parse_xml(read_xml("brighton_test_tide.xml"), brighton_latitude, brighton_longitude)
+location_xml = requests.get("https://tidesandcurrents.noaa.gov/noaatidepredictions/NOAATidesFacade.jsp?datatype=Annual+XML&Stationid=" + station_id)
+
+annual_forecast = parse_xml(location_xml.text, brighton_latitude, brighton_longitude)
+
+
+# annual_forecast = parse_xml(read_xml("brighton_test_tide.xml"), brighton_latitude, brighton_longitude)
 
 # write annual forecast to a binary txt file with pickle
-brighton_list = open("brighton_list_ss_sr_test.txt", "wb")
+# brighton_list = open("brighton_list_ss_sr_test.txt", "wb")
+brighton_list = open("big_test.txt", "wb")
 pickle.dump(annual_forecast, brighton_list)
 brighton_list.close()
