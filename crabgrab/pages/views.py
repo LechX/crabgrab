@@ -14,7 +14,7 @@ def index(request, loc, yr, mnt, dur):
     themonth = int(mnt)  # replace with month from view definition
 
     scriptpath = os.path.dirname(__file__)
-    filename = os.path.join(scriptpath, 'brighton_list.txt')  # replace with path to location data in database
+    filename = os.path.join(scriptpath, 'brighton_list_ss_sr_test.txt')  # replace with path to location data in database
     tide_file = open(filename, "rb")
     tide_data = pickle.load(tide_file)
 
@@ -56,18 +56,9 @@ def index(request, loc, yr, mnt, dur):
 
                     for entry in tide_data:
                         if entry[0].month == themonth and entry[0].year == theyear and entry[0].day == d:
-                            if entry[0] < datetime.datetime(theyear, themonth, d, 7, 30) \
-                                    or entry[0] > datetime.datetime(theyear, themonth, d, 17, 30):  # add sunset/rise here <!-- http://api.sunrise-sunset.org/json?lat=45.6700&lng=-123.9250&date=2017-12-03 -->
-                                change_class = 'night'
-                            elif abs(int(entry[4])) < 4:
-                                change_class = 'good'
-                            elif abs(int(entry[4])) < 6:
-                                change_class = 'moderate'
-                            else:
-                                change_class = 'poor'
                             am_pm_time = entry[0].strftime('%I:%M %p')
                             daily_info += '<tr><td>{}</td><td>{}</td><td>{}</td><td class={}>{}</td></tr>'\
-                                .format(entry[2], entry[1], am_pm_time, change_class, entry[4])
+                                .format(entry[2], entry[1], am_pm_time, entry[3], entry[4])
                     w += '<td class="{}">{}</table></td>'.format(html_cal.cssclasses[wd], daily_info)
 
             a('<tr>{}</tr>'.format(w))

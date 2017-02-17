@@ -93,19 +93,19 @@ th.sun {
     width: 40px;
 }
 
-.night {
+.night-good, .night-moderate, .night-poor {
     background: darkslategray;
 }
 
-.good {
+.day-good {
     background: limegreen;
     color: black;
 }
 
-.moderate {
+.day-moderate {
     background: seagreen;
 }
 
-.poor {
+.day-poor {
 
 }
