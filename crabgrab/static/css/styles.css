@@ -72,6 +72,10 @@ th.sun {
     margin-bottom: 5px;
 }
 
+.invisibleRow {
+    color: transparent;
+}
+
 .datenumber {
     background: darkblue;
     border-bottom: solid 1px lightblue;

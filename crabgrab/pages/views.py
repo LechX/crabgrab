@@ -57,8 +57,13 @@ def index(request, loc, yr, mnt, dur):
                     for entry in tide_data:
                         if entry[0].month == themonth and entry[0].year == theyear and entry[0].day == d:
                             am_pm_time = entry[0].strftime('%I:%M %p')
-                            daily_info += '<tr><td>{}</td><td>{}</td><td>{}</td><td class={}>{}</td></tr>'\
+                            daily_info += '<tr><td>{}</td><td>{}</td><td>{}</td><td class={}>{}</td></tr>' \
                                 .format(entry[2], entry[1], am_pm_time, entry[3], entry[4])
+
+                    if daily_info.count('tr') == 8:
+                        daily_info += '<tr><td class="invisibleRow">CR</td><td class="invisibleRow">AB</td>' \
+                                      '<td class="invisibleRow">TIDES</td><td class="invisibleRow">.COM</td></tr>'
+
                     w += '<td class="{}">{}</table></td>'.format(html_cal.cssclasses[wd], daily_info)
 
             a('<tr>{}</tr>'.format(w))
