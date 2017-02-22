@@ -22,13 +22,15 @@ def convert_ss_sr_utc_to_pst(date_time):
     target = target.split('+')
     target = datetime.strptime(target[0], '%Y-%m-%d %H:%M:%S')
 
-    # set up DST start and end (2017 specific) and apply adjustment to UTC
-    DST_start = datetime.strptime('2017-03-11 02:00:00', '%Y-%m-%d %H:%M:%S')
-    DST_end = datetime.strptime('2017-11-05 02:00:00', '%Y-%m-%d %H:%M:%S')
+    # set up DST start and end (2017 specific, in UTC)
+    DST_start = datetime.strptime('2017-03-11 10:00:00', '%Y-%m-%d %H:%M:%S')
+    DST_end = datetime.strptime('2017-11-05 10:00:00', '%Y-%m-%d %H:%M:%S')
+
+    # apply adjustment to convert from UTC to PST/PDT
     if target > DST_start and target < DST_end:
-        target = target - timedelta(hours=8)
+        target = target - timedelta(hours=7)  # PDT
     else:
-        target = target - timedelta(hours=7)
+        target = target - timedelta(hours=8)  # PST
 
     return target
 
@@ -66,11 +68,9 @@ def parse_xml(raw_data, latitude, longitude, station_id):
         change_level = str()
 
         # determine if day or night
-        if items[i][0].date != items[i-1][0].date:
+        if items[i][0].date() != items[i-1][0].date():
             sr_ss_date = items[i][0].strftime('%Y-%m-%d')
             sr_ss_UTC_result = requests.get('http://api.sunrise-sunset.org/json?lat=' + str(latitude) + '&lng=' + str(longitude) + '&date=' + sr_ss_date + '&formatted=0').json()
-        else:
-            continue
 
         # for day_start, turn srssresult into datetime object offset to pst (use sunrise plus one hour)
         day_start = sr_ss_UTC_result.get('results').get('sunrise')
@@ -107,7 +107,7 @@ def parse_xml(raw_data, latitude, longitude, station_id):
 
         # store each tide in database
         t = Tides()
-        # t.location = items[i][5]
+        t.location = items[i][5]
         t.datetime = items[i][0]
         t.height = items[i][1]
         t.H_L = items[i][2]

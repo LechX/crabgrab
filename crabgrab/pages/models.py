@@ -13,7 +13,7 @@ class Locations(models.Model):
 
 
 class Tides(models.Model):
-    # location = models.ForeignKey("Locations")
+    location = models.ForeignKey("Locations")
     datetime = models.DateTimeField()
     height = models.CharField(max_length=10)
     H_L = models.CharField(max_length=10)
