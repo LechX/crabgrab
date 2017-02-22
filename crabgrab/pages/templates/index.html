@@ -5,39 +5,29 @@
     <meta charset="UTF-8">
     <title>Crab Tides</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
 
     <div id="header">
-        <h3>Crab Tides, your home for forecasted crabbing conditions</h3>
-        <form>
+        <h3 id="logo">CrabTides.com, your home for<br/>forecasted crabbing conditions</h3>
+        <form id="location_picker">
+            Region: &nbsp;
+            <select id="region_list">
+                <option value="">Please select a region...</option>
+                {% for s in states %}
+                    <option value="{{ s }}">{{ s }}</option>
+                {% endfor %}
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             Location: &nbsp;
             <select id="location_list">
-                <option value="Brighton">Brighton</option>
-            </select>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Month: &nbsp;
-            <select id="month_list">
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="4">April</option>
-                <option value="5">May</option>
-                <option value="6">June</option>
-                <option value="7">July</option>
-                <option value="8">August</option>
-            </select>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Months to display: &nbsp;
-            <select id="forecast_length">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+                <option value=""></option>
             </select>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="submit" onsubmit="return select_display()">
         </form>
-        <p>Current tide information displayed for {{ current_location }}</p>
+        <h3 id="current">Current information for:<br/>{{ current_location }}</h3>
     </div>
 
     <div id="container">
@@ -50,21 +40,55 @@
 
     <script>
 
-        function select_display() {
-            var location = document.getElementById("location_list").value;
-            var month = document.getElementById("month_list").value;
-            var forecast = document.getElementById("forecast_length").value;
-
-            var target = 'localhost:8000/' + location + '/2017/' + month + '/' + forecast + '/';
-
-            console.log(target);
-
-            window.location.replace(target);
-
-            return false;
+        // using jQuery
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
         }
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        $("#region_list").change(function(){
+            var selected_value = this.value;
+            $.ajax({
+                url: "/locations/",
+                type: "POST",
+                data: {"region": selected_value},
+
+                success: function (data) {
+                    var target = $("#location_list");
+                    data.loc.forEach(function(e){
+                        target.append(new Option (e, e));
+                    })
+                }
+            })
+        });
 
     </script>
+
+
 
 </body>
 </html>

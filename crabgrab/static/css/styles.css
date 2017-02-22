@@ -16,6 +16,27 @@ html {
     color: whitesmoke;
     text-align: center;
     border-bottom: solid 5px lightblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#logo {
+    width: 350px;
+    border-bottom: solid 5px lightblue;
+}
+
+#location_picker {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#current {
+    width: 350px;
+    border-bottom: solid 5px lightblue;
 }
 
 #container {

@@ -1,12 +1,16 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from calendar import HTMLCalendar
+import json
 import pickle
 import os.path
 import datetime
-
+from .models import Locations
 
 # this should be request, year, month, location
 def index(request, loc, yr, mnt, dur):
+
+    state_list = set(Locations.objects.values_list("state", flat=True))
 
     current_location = loc
 
@@ -83,6 +87,15 @@ def index(request, loc, yr, mnt, dur):
     context_dict = {
         'current_location': current_location,
         'cal': cal,
+        'states': state_list,
     }
 
     return render(request, 'index.html', context_dict)
+
+
+def location_picker(request):
+    if request.method == "POST":
+        region = request.POST["region"]
+        loc_list = list(Locations.objects.filter(state=region).values_list("name", flat=True))
+        print(type(loc_list[0]))
+        return JsonResponse({"loc": loc_list})
