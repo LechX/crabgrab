@@ -15,28 +15,47 @@ html {
     height: 100px;
     color: whitesmoke;
     text-align: center;
-    border-bottom: solid 5px lightblue;
+    background: darkblue;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
 #logo {
-    width: 350px;
-    border-bottom: solid 5px lightblue;
+    width: 300px;
+    border: solid 3px lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #location_picker {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
+    padding: 10px;
 }
 
 #current {
-    width: 350px;
-    border-bottom: solid 5px lightblue;
+    width: 300px;
+    border: solid 3px lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#condition_legend {
+    border: solid 1px lightblue;
+}
+
+.legend_table {
 }
 
 #container {

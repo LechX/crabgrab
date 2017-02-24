@@ -1,30 +1,33 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from calendar import HTMLCalendar
-import json
-import pickle
-import os.path
 import datetime
-from .models import Locations
+import os
+import django
+from .models import Locations, Tides
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crabgrab.settings')
+django.setup()
 
-# this should be request, year, month, location
-def index(request, loc, yr, mnt, dur):
 
-    state_list = set(Locations.objects.values_list("state", flat=True))
 
-    current_location = loc
+def index(request, loc):
 
-    theyear = int(yr)  # replace with year from view definition
-    themonth = int(mnt)  # replace with month from view definition
+    state_list = Locations.objects.values_list("state", flat=True).order_by("state")
+    state_list = set(state_list)
+    state_list = sorted(state_list)
 
-    scriptpath = os.path.dirname(__file__)
-    filename = os.path.join(scriptpath, 'big_test.txt')  # replace with path to location data in database
-    tide_file = open(filename, "rb")
-    tide_data = pickle.load(tide_file)
+    loc = loc.upper()
+    current_location = Locations.objects.get(id=loc)
+    current_location = current_location.name
+
+    theyear = 2017
+    themonth = 1
+
+    tide_data = Tides.objects.filter(location=loc).order_by("datetime")
 
     full_cal = []
 
-    for months in range(0, int(dur)):
+    for months in range(0, 12):
 
         html_cal = HTMLCalendar(firstweekday=6)
         v = []
@@ -59,10 +62,10 @@ def index(request, loc, yr, mnt, dur):
                                  '</th><th class="change">&#9651;</th></tr>'.format(d)
 
                     for entry in tide_data:
-                        if entry[0].month == themonth and entry[0].year == theyear and entry[0].day == d:
-                            am_pm_time = entry[0].strftime('%I:%M %p')
+                        if entry.datetime.month == themonth and entry.datetime.year == theyear and entry.datetime.day == d:
+                            am_pm_time = entry.datetime.strftime('%I:%M %p')
                             daily_info += '<tr><td>{}</td><td>{}</td><td>{}</td><td class={}>{}</td></tr>' \
-                                .format(entry[2], entry[1], am_pm_time, entry[3], entry[4])
+                                .format(entry.H_L, entry.height, am_pm_time, entry.classification, entry.change)
 
                     if daily_info.count('tr') == 8:
                         daily_info += '<tr><td class="invisibleRow">CR</td><td class="invisibleRow">AB</td>' \
@@ -96,6 +99,5 @@ def index(request, loc, yr, mnt, dur):
 def location_picker(request):
     if request.method == "POST":
         region = request.POST["region"]
-        loc_list = list(Locations.objects.filter(state=region).values_list("name", flat=True))
-        print(type(loc_list[0]))
+        loc_list = list(Locations.objects.filter(state=region).order_by("name").values_list("name", "id"))
         return JsonResponse({"loc": loc_list})

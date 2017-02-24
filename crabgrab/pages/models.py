@@ -11,6 +11,9 @@ class Locations(models.Model):
     longitude = models.CharField(max_length=255)
     prediction_type = models.CharField(max_length=255)
 
+    def __str__(self):
+        return str(self.name)
+
 
 class Tides(models.Model):
     location = models.ForeignKey("Locations")
@@ -19,3 +22,6 @@ class Tides(models.Model):
     H_L = models.CharField(max_length=10)
     classification = models.CharField(max_length=25)
     change = models.CharField(max_length=10)
+
+    def __str__(self):
+        return str(self.pk)

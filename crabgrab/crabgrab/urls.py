@@ -21,6 +21,6 @@ from pages.views import index, location_picker
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^(?P<loc>[\w]+)/(?P<yr>[\w]+)/(?P<mnt>[\w]+)/(?P<dur>[\w]+)/', index, name='home'),
     url(r'^locations/$', location_picker, name='loc_picker'),
+    url(r'^(?P<loc>[\w]+)/', index, name='home'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

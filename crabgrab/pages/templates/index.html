@@ -10,24 +10,46 @@
 <body>
 
     <div id="header">
+
         <h3 id="logo">CrabTides.com, your home for<br/>forecasted crabbing conditions</h3>
-        <form id="location_picker">
-            Region: &nbsp;
+
+        <div id="location_picker">
+            <div id="region">Region: &nbsp;
             <select id="region_list">
                 <option value="">Please select a region...</option>
                 {% for s in states %}
                     <option value="{{ s }}">{{ s }}</option>
                 {% endfor %}
             </select>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Location: &nbsp;
+            </div>
+            <div id="location">Location: &nbsp;
             <select id="location_list">
                 <option value=""></option>
             </select>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="submit" onsubmit="return select_display()">
-        </form>
-        <h3 id="current">Current information for:<br/>{{ current_location }}</h3>
+            </div>
+            <input type="submit" value="submit" id="redirect">
+        </div>
+
+        <h3 id="current">Current tide info:<br/>{{ current_location }}</h3>
+
+        <div id="legend">
+            <table id="condition_legend">
+                <tr>
+                    <th class="legend_table" colspan="4">Tide &#9651; Conditions Legend</th>
+                </tr>
+                <tr>
+                    <th class="legend_table">Day</th>
+                    <td class="day-poor">Normal</td>
+                    <td class="day-moderate">Good</td>
+                    <td class="day-good">Optimal</td>
+                </tr>
+                <tr>
+                    <th class="legend_table">Night</th>
+                    <td class="night-good">All</td>
+                </tr>
+            </table>
+        </div>
+
     </div>
 
     <div id="container">
@@ -78,12 +100,28 @@
                 data: {"region": selected_value},
 
                 success: function (data) {
+
                     var target = $("#location_list");
+                    target.empty();
+
                     data.loc.forEach(function(e){
-                        target.append(new Option (e, e));
+                        target.append(new Option (e[0], e[1]));
                     })
+
                 }
             })
+        });
+
+
+        $('#redirect').click(function (e) {
+
+            e.preventDefault();
+
+            var location = $('#location_list').val();
+            console.log(location);
+
+            window.location = "http://localhost:8000/" + location;
+
         });
 
     </script>
