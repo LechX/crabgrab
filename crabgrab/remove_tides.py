@@ -19,4 +19,6 @@ def remove_tides(state):
 # remove_tides("Washington")
 # remove_tides("California")
 
+remove_tides("Alaska")
+
 print("{} total seconds elapsed".format(time.time() - start_time))

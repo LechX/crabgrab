@@ -77,8 +77,12 @@ a {
 }
 
 #footer {
-    text-align: center;
     padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    color: gray;
 }
 
 th {

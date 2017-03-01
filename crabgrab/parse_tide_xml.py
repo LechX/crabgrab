@@ -155,9 +155,9 @@ def main(station_id, latitude, longitude):
     # pickle.dump(annual_forecast, test_list)
     # test_list.close()
 
-locs = Locations.objects.filter(state="Oregon")
+locs = Locations.objects.filter(state="Alaska")
 
-completed_states = []
+completed_states = ["Oregon", "Washington", "California"]
 # locs = Locations.objects.all().exclude(state__in=completed_states)
 
 location_index = 0
