@@ -1,0 +1,90 @@
+body, html {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+html {
+    background: url("../img/dock.jpeg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#header {
+    height: 20vh;
+    color: whitesmoke;
+    text-align: center;
+    background: rgba(0,0,255,0.5);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#logo {
+    background: lightblue;
+    border: solid 6px lightblue;
+    color: darkblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    height: 60px;
+}
+
+h1, h2 {
+    padding: 0;
+    margin: 0;
+}
+
+#login_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border: solid 6px lightblue;
+    border-radius: 10px;
+    height: 60px;
+}
+
+#location_picker {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 10px;
+    height: 80px;
+}
+
+#container {
+    height: 70vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: gray;
+    border-bottom: 1px dotted gray;
+}
+
+#footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    color: gray;
+    background: rgba(0,0,255,0.5);
+    height: 10vh;
+}
+
+#copyright {
+    padding: 2px;
+    margin: 0;
+}

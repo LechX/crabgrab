@@ -11,6 +11,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crabgrab.settings')
 django.setup()
 
 
+def login(request):
+    return render(request, 'home.html', {})
+
 
 def index(request, loc):
 
@@ -28,6 +31,8 @@ def index(request, loc):
     state_list = sorted(state_list)
 
     current_location = this_location.name
+    if len(current_location) > 20:
+        current_location = current_location[:20] + '...'
 
     theyear = 2017
     themonth = 1
@@ -38,6 +43,7 @@ def index(request, loc):
 
     for months in range(0, 12):
 
+        # create html calendar object; a list 'v'; and a method 'a' to append to 'v'
         html_cal = HTMLCalendar(firstweekday=6)
         v = []
         a = v.append
@@ -46,6 +52,9 @@ def index(request, loc):
         a('\n')
         a('<table border="0" cellpadding="0" cellspacing="2px" class="month">')
         a('\n')
+
+        if themonth == datetime.date.today().month:
+            a('<a name="currentmonth"></a>')
 
         # add [month year] header
         a(html_cal.formatmonthname(theyear, themonth, withyear=True))
@@ -67,28 +76,31 @@ def index(request, loc):
 
                 else:  # create inner tables for each day with H/L, tide in feet, and change
 
-
+                    # set up individual day table with title row for date, feet, time, and change symbol
                     daily_info = '<table border="0" cellpadding="0" cellspacing="0" class="day"><tr>' \
                                  '<th class="datenumber">{}</th><th class="feet">feet</th><th class="time">time' \
                                  '</th><th class="change">&#9651;</th></tr>'.format(d)
 
+                    # for each tide that matches this day+month+year, add a table row with relevant data
                     for entry in tide_data:
                         if entry.datetime.month == themonth and entry.datetime.year == theyear and entry.datetime.day == d:
                             am_pm_time = entry.datetime.strftime('%I:%M %p')
                             daily_info += '<tr><td>{}</td><td>{}</td><td>{}</td><td class={}>{}</td></tr>' \
                                 .format(entry.H_L, entry.height, am_pm_time, entry.classification, entry.change)
 
-                    if daily_info.count('tr') == 8:
+                    # for stylistic purposes, add an invisible dummy row when there are only three tide changes in a day
+                    if daily_info.count('tr') == 8:  # eight instances of tr from header and three tide rows
                         daily_info += '<tr><td class="invisibleRow">CR</td><td class="invisibleRow">AB</td>' \
                                       '<td class="invisibleRow">TIDES</td><td class="invisibleRow">.COM</td></tr>'
 
+                    # add in ten day forecast based on current day and calendar day currently being generated
                     current_day = datetime.date.today()
                     calendar_day = '{}/{}/{}'.format(themonth, d, theyear)
                     calendar_day = datetime.datetime.strptime(calendar_day, '%m/%d/%Y').date()
 
                     if current_day <= calendar_day <= (current_day + datetime.timedelta(days=9)):
 
-                        # pull relevant icons
+                        # pull relevant icons for day and night weather (index 0-19 for ten days)
                         forecast_day_integer = (calendar_day - current_day).days
                         forecast_day_index = forecast_day_integer * 2
                         forecast_night_index = forecast_day_integer * 2 + 1
@@ -101,19 +113,30 @@ def index(request, loc):
                             weather_parsed_json['forecast']['txt_forecast']['forecastday'][forecast_night_index]['icon']
                         nightly_weather_icon_url = 'https://icons.wxug.com/i/c/i/' + nightly_weather_icon + '.gif'
 
-                        # pull relevant description (figure out how to create a hover item for this)
+                        # pull relevant description (need to figure out how to create a hover item for this)
                         # daily_weather_description = weather_parsed_json['forecast']['txt_forecast']['forecastday'][forecast_day_index]['fcttext']
 
-                        # daily rainfall
+                        # add daily rainfall and classification
                         accumulation = weather_parsed_json['forecast']['simpleforecast']['forecastday'][forecast_day_integer]['qpf_allday']['in']
 
-                        # add forecast to a new row in table
-                        daily_info += '<tr><td colspan="4">Forecast (day/night/rain):</td></tr><tr><td colspan="2">' \
-                                      '<img src="{}"></td><td><img src="{}"></td><td>{} in.</td></tr>' \
-                            .format(daily_weather_icon_url, nightly_weather_icon_url, accumulation)
+                        if accumulation >= 0.5:
+                            rain_tag = 'rain-heavy'
+                        elif accumulation >= 0.25:
+                            rain_tag = 'rain-moderate'
+                        else:
+                            rain_tag = 'rain-light'
 
+                        # add forecast items to a new row in table
+                        daily_info += '<tr><th colspan="2" class="forecast">Day</th><th class="forecast">Night</th>' \
+                                      '<th class="forecast">Rain</th></tr><tr><td colspan="2">' \
+                                      '<img src="{}" height="30"></td><td><img src="{}" height="30"></td>' \
+                                      '<td class="{}">{} in.</td></tr>' \
+                            .format(daily_weather_icon_url, nightly_weather_icon_url, rain_tag, accumulation)
+
+                    # append daily table html string to the week's html string
                     w += '<td class="{}">{}</table></td>'.format(html_cal.cssclasses[wd], daily_info)
 
+            # plug the week's html string into the appropriate row and start a new line
             a('<tr>{}</tr>'.format(w))
             a('\n')
 

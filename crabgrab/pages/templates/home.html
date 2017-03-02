@@ -4,44 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Crab Tides</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
 
     <div id="header">
 
-        <a href="{% url 'login' %}" class="no_border"><h3 id="logo">&nbsp;<img src="https://cdn4.iconfinder.com/data/icons/zodiac-and-horoscope-outlines/100/06-512.png" height="80">&nbsp;CrabTides.com&nbsp;&nbsp;</h3></a>
+        <h3 id="logo">&nbsp;<img src="https://cdn4.iconfinder.com/data/icons/zodiac-and-horoscope-outlines/100/06-512.png" height="80">&nbsp;CrabTides.com&nbsp;&nbsp;</h3>
 
-        <h3 id="current">Current tide info:<br/>{{ current_location }}</h3>
-
-        <div id="legend">
-            <table id="condition_legend">
-                <tr>
-                    <th rowspan="2" id="legend_title">TIDE &#9651;<br>LEGEND</th>
-                    <th class="legend_header">Day</th>
-                    <td class="legend_item" class="day-poor">Normal</td>
-                    <td class="day-moderate">Good</td>
-                    <td class="day-good">Optimal</td>
-                </tr>
-                <tr>
-                    <th class="legend_header">Night</th>
-                    <td colspan="3" class="night-good">All tide changes</td>
-                </tr>
-                <tr>
-                    <th colspan="2" id="rain_forecast">Rain forecast:</th>
-                    <td class="rain-heavy">Heavy</td>
-                    <td class="rain-moderate">Moderate</td>
-                    <td class="legend_item" class="rain-light">Light</td>
-                </tr>
-            </table>
+        <div id="login_header">
+            <h2>&nbsp;&nbsp;SELECT A LOCATION&nbsp;&nbsp;></h2>&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
-
-        <a href="#currentmonth" id="jump">
-            <p><i>jump to</i>
-            <br>
-            TODAY</p>
-        </a>
 
         <div id="location_picker">
             <div id="region">Region: &nbsp;
@@ -68,7 +42,9 @@
     </div>
 
     <div id="container">
-        {{ cal | safe }}
+
+
+
     </div>
 
     <div id="footer">
@@ -139,7 +115,7 @@
             var location = $('#location_list').val();
             console.log(location);
 
-            window.location = '/' + location;
+            window.location = "/" + location;
 
         });
 

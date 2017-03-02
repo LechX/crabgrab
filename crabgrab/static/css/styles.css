@@ -12,21 +12,25 @@ html {
 }
 
 #header {
-    height: 100px;
+    height: 90px;
     color: whitesmoke;
     text-align: center;
-    background: darkblue;
+    background: rgba(0,0,255,0.2);
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
 }
 
 #logo {
-    width: 300px;
+    background: lightblue;
     border: solid 3px lightblue;
+    color: darkblue;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
+    height: 60px;
 }
 
 #location_picker {
@@ -38,30 +42,66 @@ html {
 }
 
 #current {
-    width: 300px;
+    width: 250px;
     border: solid 3px lightblue;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
+    height: 60px;
+}
+
+#jump {
+    border: solid 3px lightblue;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    height: 60px;
+    width: 80px;
+    line-height: 1.5;
 }
 
 #legend {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: small;
 }
 
 #condition_legend {
-    border: solid 1px lightblue;
+    border: solid 3px lightblue;
+    border-radius: 10px;
+    padding-right: 6px;
+    background: lightblue;
 }
 
-.legend_table {
+.legend_header {
+    display: flex;
+    align-items: flex-start;
+    padding-left: 4px;
+    padding-right: 4px;
+    background: darkblue;
+    color: white;
+}
+
+.legend_item {
+    background: darkblue;
+    color: lightblue;
+}
+
+#legend_title {
+    color: darkblue;
+}
+
+#rain_forecast {
+    background: white;
+    color: darkblue;
 }
 
 #container {
     width: 100vw;
-    min-height: 100vh;
-
     top: 0;
     left: 0;
     display: flex;
@@ -76,6 +116,10 @@ a {
     border-bottom: 1px dotted gray;
 }
 
+.no_border {
+    border: none;
+}
+
 #footer {
     padding: 5px;
     display: flex;
@@ -83,6 +127,12 @@ a {
     justify-content: space-around;
     align-items: center;
     color: gray;
+    background: rgba(0,0,255,0.2);
+}
+
+#copyright {
+    padding: 2px;
+    margin: 0;
 }
 
 th {
@@ -141,6 +191,11 @@ th.sun {
     width: 40px;
 }
 
+.forecast {
+    border-bottom: solid 1px lightblue;
+    border-top: solid 1px lightblue;
+}
+
 .night-good, .night-moderate, .night-poor {
     background: darkslategray;
 }
@@ -155,5 +210,17 @@ th.sun {
 }
 
 .day-poor {
+
+}
+
+.rain-heavy {
+    background: red;
+}
+
+.rain-moderate {
+    background: darkred;
+}
+
+.rain-light {
 
 }

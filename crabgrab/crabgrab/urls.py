@@ -17,9 +17,10 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from pages.views import index, location_picker
+from pages.views import login, index, location_picker
 
 urlpatterns = [
+    url(r'^$', login, name='login'),
     url(r'^admin/', admin.site.urls),
     url(r'^locations/$', location_picker, name='loc_picker'),
     url(r'^(?P<loc>[\w]+)/', index, name='home'),
