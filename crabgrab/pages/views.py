@@ -12,7 +12,16 @@ django.setup()
 
 
 def login(request):
-    return render(request, 'home.html', {})
+
+    state_list = Locations.objects.values_list("state", flat=True).order_by("state")
+    state_list = set(state_list)
+    state_list = sorted(state_list)
+
+    context_dict = {
+        'states': state_list,
+    }
+
+    return render(request, 'home.html', context_dict)
 
 
 def index(request, loc):
@@ -30,11 +39,12 @@ def index(request, loc):
     state_list = set(state_list)
     state_list = sorted(state_list)
 
+    # populate current location name, shorten if greater than 20 characters
     current_location = this_location.name
     if len(current_location) > 20:
         current_location = current_location[:20] + '...'
 
-    theyear = 2017
+    theyear = datetime.datetime.now().year
     themonth = 1
 
     tide_data = Tides.objects.filter(location=loc).order_by("datetime")
@@ -162,6 +172,7 @@ def index(request, loc):
     return render(request, 'index.html', context_dict)
 
 
+# returns JSON including all locations for a given region
 def location_picker(request):
     if request.method == "POST":
         region = request.POST["region"]
