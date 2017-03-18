@@ -174,7 +174,6 @@ def index(request, loc):
 
 # returns JSON including all locations for a given region
 def location_picker(request):
-    if request.method == "POST":
-        region = request.POST["region"]
-        loc_list = list(Locations.objects.filter(state=region).order_by("name").values_list("name", "id"))
-        return JsonResponse({"loc": loc_list})
+    region = request.POST["region"]
+    loc_list = list(Locations.objects.filter(state=region).order_by("name").values_list("name", "id"))
+    return JsonResponse({"loc": loc_list})
