@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from calendar import HTMLCalendar
+from django.views.decorators.csrf import csrf_exempt
 import datetime
 import time
 import os
@@ -173,6 +174,7 @@ def index(request, loc):
 
 
 # returns JSON including all locations for a given region
+@csrf_exempt
 def location_picker(request):
     region = request.POST["region"]
     loc_list = list(Locations.objects.filter(state=region).order_by("name").values_list("name", "id"))
