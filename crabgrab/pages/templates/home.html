@@ -89,7 +89,6 @@
 
         $("#region_list").change(function(){
             var selected_value = this.value;
-            console.log(selected_value);
             $.ajax({
                 url: "/locations/",
                 type: "POST",
