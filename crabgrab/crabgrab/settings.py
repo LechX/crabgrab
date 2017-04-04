@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'soepm&1x(hb%l)^3wt_cvh_wxli%b^qnuu+1wv^-@4()jigrk#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['.crabtides.com', '162.243.128.163', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.crabtides.com', '162.243.128.163']
 
 
 # Application definition
@@ -137,5 +137,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/')
+    os.path.join(BASE_DIR, 'static')
 ]
