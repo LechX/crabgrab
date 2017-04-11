@@ -25,7 +25,7 @@ SECRET_KEY = 'soepm&1x(hb%l)^3wt_cvh_wxli%b^qnuu+1wv^-@4()jigrk#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.crabtides.com', '162.243.128.163']
+ALLOWED_HOSTS = ['.crabtides.com', '162.243.128.163', 'localhost', '127.0.0.1']
 
 
 # Application definition

@@ -18,6 +18,10 @@ start_time = time.time()
 GOOD_LEVEL = 4.0
 MODERATE_LEVEL = 6.0
 
+# Google TZ API Key AIzaSyBr6teGFmauT76DNn4jjiI-yqgvxJuqRiQ
+# https://maps.googleapis.com/maps/api/timezone/json?location=LAT,LNG&timestamp=SECONDSSINCE1970&key=KEY
+# Alaska vs. Alaska/Hawaii time zone border at -169.30
+# Florida time zone somewhere between -85.3933 and -85.3133
 
 def convert_ss_sr_utc_to_pst(date_time):
 
