@@ -23,7 +23,9 @@ MODERATE_LEVEL = 6.0
 # Alaska vs. Alaska/Hawaii time zone border at -169.30
 # Florida time zone somewhere between -85.3933 and -85.3133
 
-def convert_ss_sr_utc_to_pst(date_time):
+current_state = "Cuba"
+
+def convert_ss_sr_utc_to_local(date_time, longitude):
 
     # convert date_time argument from ss/sr JSON to python datetime object
     target = date_time.replace('T', ' ')
@@ -38,11 +40,29 @@ def convert_ss_sr_utc_to_pst(date_time):
     DST_end = datetime.strptime('2017-11-05 02:00:00', '%Y-%m-%d %H:%M:%S')
     DST_end = make_aware(DST_end, get_current_timezone(), is_dst=False)
 
-    # apply adjustment to convert from UTC to PST/PDT
-    if target > DST_start and target < DST_end:
-        target = target - timedelta(hours=9)  # PDT
+    # apply adjustment to convert from UTC to local time (inelegant solution to avoid paying Google for time zone API)
+    if current_state == "Hawaii" or current_state == "Alaska" and float(longitude) < -169.3:
+        target = target - timedelta(hours=10)  # HAST
+    elif current_state == "Alaska":
+        if target > DST_start and target < DST_end:
+            target = target - timedelta(hours=8)  # AKDT
+        else:
+            target = target - timedelta(hours=9)  # AKST
+    elif current_state == "Washington" or current_state == "Oregon" or current_state == "California":
+        if target > DST_start and target < DST_end:
+            target = target - timedelta(hours=7)  # PDT
+        else:
+            target = target - timedelta(hours=8)  # PST
+    elif current_state == "Texas" or current_state == "Louisiana" or current_state == "Mississippi" or current_state == "Alabama" or current_state == "Florida" and float(longitude) < -85.3533:
+        if target > DST_start and target < DST_end:
+            target = target - timedelta(hours=5)  # CDT
+        else:
+            target = target - timedelta(hours=6)  # CST
     else:
-        target = target - timedelta(hours=10)  # PST
+        if target > DST_start and target < DST_end:
+            target = target - timedelta(hours=4)  # EDT
+        else:
+            target = target - timedelta(hours=5)  # EST
 
     return target
 
@@ -69,7 +89,7 @@ def parse_xml(raw_data, latitude, longitude, station_id):
         time_12h = i.find("time").text
         peak_time = datetime.strptime(month + " " + day + " " + year + " " + time_12h, '%m %d %Y %I:%M %p')
         peak_time = make_aware(peak_time, get_current_timezone(), is_dst=True)  # is this reading as UTC and converting to pacific?
-        peak_time = peak_time - timedelta(hours=10)  # adjusting per theory in line above
+        peak_time = peak_time - timedelta(hours=7)  # adjusting per theory in line above
 
         # append time, water level, high/low
         try:
@@ -93,14 +113,14 @@ def parse_xml(raw_data, latitude, longitude, station_id):
 
         # for day_start, turn srssresult into datetime object offset to pst (use sunrise plus one hour)
         day_start = sr_ss_UTC_result.get('results').get('sunrise')
-        day_start = convert_ss_sr_utc_to_pst(day_start)
-        day_start = day_start - timedelta(hours=10)  # converting per theory that make_aware is changing time under assumption that it is given UTC when in fact it is a Pacific time
+        day_start = convert_ss_sr_utc_to_local(day_start, longitude)
+        day_start = day_start - timedelta(hours=7)  # converting per theory that make_aware is changing time under assumption that it is given UTC when in fact it is a Pacific time
         day_start = day_start + timedelta(hours=1)  # hour buffer so dad doesn't try to crab in the dark
 
         # for day_end, turn srssresult into datetime object offset to pst (use civil_twilight_end)
         day_end = sr_ss_UTC_result.get('results').get('civil_twilight_end')
-        day_end = convert_ss_sr_utc_to_pst(day_end)
-        day_end = day_end - timedelta(hours=10)  # converting per theory that make_aware is changing time under assumption that it is given UTC when in fact it is a Pacific time
+        day_end = convert_ss_sr_utc_to_local(day_end, longitude)
+        day_end = day_end - timedelta(hours=7)  # converting per theory that make_aware is changing time under assumption that it is given UTC when in fact it is a Pacific time
 
         # compare item[0] to day start/end and set time_of_day accordingly
         if items[i][0] > day_start and items[i][0] < day_end:
@@ -159,20 +179,22 @@ def main(station_id, latitude, longitude):
     # pickle.dump(annual_forecast, test_list)
     # test_list.close()
 
-locs = Locations.objects.filter(state="Hawaii")
+# mid_april_weekend_states = ["Alabama", "Mississippi", "Louisiana", "Texas", "Maine", "New Hampshire", "Massachusetts", "Rhode Island", "Connecticut", "New York", "New Jersey", "Delaware", "Pennsylvania", "Maryland", "Virginia", "Washington DC", "North Carolina", "South Carolina", "Georgia", "Florida"]
 
-completed_states = ["Oregon", "Washington", "California"]
+for s in mid_april_weekend_states:
+    current_state = s
+    locs = Locations.objects.filter(state=current_state)
+
+    location_index = 0
+
+    for x in locs:
+        location_start_time = time.time()
+        main(x.id, x.latitude, x.longitude)
+        location_index += 1
+        print("{} seconds elapsed while parsing {}".format(time.time() - location_start_time, x.name))
+
+    print("{} locations parsed".format(location_index))
+    print("{} total seconds elapsed".format(time.time() - start_time))
+
+completed_states = ["Oregon", "Washington", "California", "Hawaii", "Alaska", "Alabama", "Mississippi", "Louisiana", "Texas", "Maine", "New Hampshire", "Massachusetts", "Rhode Island", "Connecticut", "New York", "New Jersey", "Delaware", "Pennsylvania", "Maryland", "Virginia", "Washington DC", "North Carolina", "South Carolina", "Georgia", "Florida"]
 # locs = Locations.objects.all().exclude(state__in=completed_states)
-
-location_index = 0
-
-for x in locs:
-    location_start_time = time.time()
-    main(x.id, x.latitude, x.longitude)
-    location_index += 1
-    print("{} seconds elapsed while parsing {}".format(time.time() - location_start_time, x.name))
-
-print("{} locations parsed".format(location_index))
-print("{} total seconds elapsed".format(time.time() - start_time))
-
-# main(brighton_id, brighton_latitude, brighton_longitude)
