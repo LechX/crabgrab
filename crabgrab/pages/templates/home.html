@@ -18,7 +18,7 @@
         </div>
 
         <div id="location_picker">
-            <div id="region">Region: &nbsp;
+            <div id="region" onclick="window.alert('CrabTides is currently unavailable due to annual maintenance. Thank you for your patience and please check back often!')">Region: &nbsp;
             <select id="region_list">
                 <option value="">Please select a region...</option>
                 <option value="Alabama">Alabama</option>
@@ -121,9 +121,9 @@
                     var target = $("#location_list");
                     target.empty();
 
-                    data.loc.forEach(function(e){
-                        target.append(new Option (e[0], e[1]));
-                    })
+                    // data.loc.forEach(function(e){
+                    //     target.append(new Option (e[0], e[1]));
+                    // })
 
                 }
             })
