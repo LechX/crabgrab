@@ -23,9 +23,7 @@ MODERATE_LEVEL = 6.0
 # Alaska vs. Alaska/Hawaii time zone border at -169.30
 # Florida time zone somewhere between -85.3933 and -85.3133
 
-current_state = "Cuba"
-
-def convert_ss_sr_utc_to_local(date_time, longitude):
+def convert_ss_sr_utc_to_local(date_time, longitude, state):
 
     # convert date_time argument from ss/sr JSON to python datetime object
     target = date_time.replace('T', ' ')
@@ -34,26 +32,26 @@ def convert_ss_sr_utc_to_local(date_time, longitude):
     target = make_aware(target, get_current_timezone(), is_dst=False)
 
     # set up DST start and end (2017 specific, in UTC)
-    DST_start = datetime.strptime('2017-03-11 02:00:00', '%Y-%m-%d %H:%M:%S')
+    DST_start = datetime.strptime('2018-03-11 02:00:00', '%Y-%m-%d %H:%M:%S')
     DST_start = make_aware(DST_start, get_current_timezone(), is_dst=False)
 
-    DST_end = datetime.strptime('2017-11-05 02:00:00', '%Y-%m-%d %H:%M:%S')
+    DST_end = datetime.strptime('2018-11-04 02:00:00', '%Y-%m-%d %H:%M:%S')
     DST_end = make_aware(DST_end, get_current_timezone(), is_dst=False)
 
     # apply adjustment to convert from UTC to local time (inelegant solution to avoid paying Google for time zone API)
-    if current_state == "Hawaii" or current_state == "Alaska" and float(longitude) < -169.3:
+    if state == "Hawaii" or state == "Alaska" and float(longitude) < -169.3:
         target = target - timedelta(hours=10)  # HAST
-    elif current_state == "Alaska":
+    elif state == "Alaska":
         if target > DST_start and target < DST_end:
             target = target - timedelta(hours=8)  # AKDT
         else:
             target = target - timedelta(hours=9)  # AKST
-    elif current_state == "Washington" or current_state == "Oregon" or current_state == "California":
+    elif state == "Washington" or state == "Oregon" or state == "California":
         if target > DST_start and target < DST_end:
             target = target - timedelta(hours=7)  # PDT
         else:
             target = target - timedelta(hours=8)  # PST
-    elif current_state == "Texas" or current_state == "Louisiana" or current_state == "Mississippi" or current_state == "Alabama" or current_state == "Florida" and float(longitude) < -85.3533:
+    elif state == "Texas" or state == "Louisiana" or state == "Mississippi" or state == "Alabama" or state == "Florida" and float(longitude) < -85.3533:
         if target > DST_start and target < DST_end:
             target = target - timedelta(hours=5)  # CDT
         else:
@@ -67,7 +65,7 @@ def convert_ss_sr_utc_to_local(date_time, longitude):
     return target
 
 
-def parse_xml(raw_data, latitude, longitude, station_id):
+def parse_xml(raw_data, latitude, longitude, station_id, state):
 
     try:
         tree = ET.fromstring(raw_data)
@@ -113,13 +111,13 @@ def parse_xml(raw_data, latitude, longitude, station_id):
 
         # for day_start, turn srssresult into datetime object offset to pst (use sunrise plus one hour)
         day_start = sr_ss_UTC_result.get('results').get('sunrise')
-        day_start = convert_ss_sr_utc_to_local(day_start, longitude)
+        day_start = convert_ss_sr_utc_to_local(day_start, longitude, state)
         day_start = day_start - timedelta(hours=8)  # converting per theory that make_aware is changing time under assumption that it is given UTC when in fact it is a Pacific time
         day_start = day_start + timedelta(hours=1)  # hour buffer so dad doesn't try to crab in the dark
 
         # for day_end, turn srssresult into datetime object offset to pst (use civil_twilight_end)
         day_end = sr_ss_UTC_result.get('results').get('civil_twilight_end')
-        day_end = convert_ss_sr_utc_to_local(day_end, longitude)
+        day_end = convert_ss_sr_utc_to_local(day_end, longitude, state)
         day_end = day_end - timedelta(hours=8)  # converting per theory that make_aware is changing time under assumption that it is given UTC when in fact it is a Pacific time
 
         # compare item[0] to day start/end and set time_of_day accordingly
@@ -166,11 +164,11 @@ def parse_xml(raw_data, latitude, longitude, station_id):
 # brighton_id = '9437815'
 
 
-def main(station_id, latitude, longitude):
+def main(station_id, latitude, longitude, state):
 
     # location_xml = requests.get("https://tidesandcurrents.noaa.gov/noaatidepredictions/NOAATidesFacade.jsp?datatype=Annual+XML&Stationid=" + station_id) # 2017 version
     location_xml = requests.get("https://tidesandcurrents.noaa.gov/cgi-bin/predictiondownload.cgi?&stnid=" + station_id + "&threshold=&thresholdDirection=greaterThan&bdate=2018&timezone=LST/LDT&datum=MLLW&clock=12hour&type=xml&annual=true") # 2018 version
-    parse_xml(location_xml.text, latitude, longitude, station_id)
+    parse_xml(location_xml.text, latitude, longitude, station_id, state)
 
     # annual_forecast = parse_xml(location_xml.text, latitude, longitude, station_id)
 
@@ -180,20 +178,12 @@ def main(station_id, latitude, longitude):
     # pickle.dump(annual_forecast, test_list)
     # test_list.close()
 
-# mid_april_weekend_states = ["Alabama", "Mississippi", "Louisiana", "Texas", "Maine", "New Hampshire", "Massachusetts", "Rhode Island", "Connecticut", "New York", "New Jersey", "Delaware", "Pennsylvania", "Maryland", "Virginia", "Washington DC", "North Carolina", "South Carolina", "Georgia", "Florida"]
-
-# mid_april_weekend_states = ["Oregon"]
-
-# for s in mid_april_weekend_states:
-    # current_state = s
-    # locs = Locations.objects.filter(state=current_state)
-
 
 #######################################################
 ## NEW LOOP FOR GRABBING ALL TIDES FOR ALL LOCATIONS ##
 #######################################################
 
-locs = Locations.objects.all()
+locs = Locations.objects.filter(state="Oregon")
 location_index = 0
 
 for x in locs:
@@ -207,7 +197,7 @@ for x in locs:
             loc_tide.delete()
 
     # run main tide function on this location
-    main(x.id, x.latitude, x.longitude)
+    main(x.id, x.latitude, x.longitude, x.state)
     location_index += 1
     print("{} seconds elapsed while parsing {}".format(time.time() - location_start_time, x.name))
 
