@@ -89,12 +89,12 @@ def parse_xml(raw_data, latitude, longitude, station_id):
         time_12h = i.find("time").text
         peak_time = datetime.strptime(month + " " + day + " " + year + " " + time_12h, '%m %d %Y %I:%M %p')
         peak_time = make_aware(peak_time, get_current_timezone(), is_dst=True)  # is this reading as UTC and converting to pacific?
-        peak_time = peak_time - timedelta(hours=7)  # adjusting per theory in line above
+        peak_time = peak_time - timedelta(hours=8)  # adjusting per theory in line above
 
         # append time, water level, high/low
         try:
             items.append([peak_time,
-                      i.find("predictions_in_ft").text,
+                      i.find("pred_in_ft").text,
                       i.find("highlow").text])
         except Exception as e:
             print(e)
@@ -114,13 +114,13 @@ def parse_xml(raw_data, latitude, longitude, station_id):
         # for day_start, turn srssresult into datetime object offset to pst (use sunrise plus one hour)
         day_start = sr_ss_UTC_result.get('results').get('sunrise')
         day_start = convert_ss_sr_utc_to_local(day_start, longitude)
-        day_start = day_start - timedelta(hours=7)  # converting per theory that make_aware is changing time under assumption that it is given UTC when in fact it is a Pacific time
+        day_start = day_start - timedelta(hours=8)  # converting per theory that make_aware is changing time under assumption that it is given UTC when in fact it is a Pacific time
         day_start = day_start + timedelta(hours=1)  # hour buffer so dad doesn't try to crab in the dark
 
         # for day_end, turn srssresult into datetime object offset to pst (use civil_twilight_end)
         day_end = sr_ss_UTC_result.get('results').get('civil_twilight_end')
         day_end = convert_ss_sr_utc_to_local(day_end, longitude)
-        day_end = day_end - timedelta(hours=7)  # converting per theory that make_aware is changing time under assumption that it is given UTC when in fact it is a Pacific time
+        day_end = day_end - timedelta(hours=8)  # converting per theory that make_aware is changing time under assumption that it is given UTC when in fact it is a Pacific time
 
         # compare item[0] to day start/end and set time_of_day accordingly
         if items[i][0] > day_start and items[i][0] < day_end:
@@ -168,7 +168,8 @@ def parse_xml(raw_data, latitude, longitude, station_id):
 
 def main(station_id, latitude, longitude):
 
-    location_xml = requests.get("https://tidesandcurrents.noaa.gov/noaatidepredictions/NOAATidesFacade.jsp?datatype=Annual+XML&Stationid=" + station_id)
+    # location_xml = requests.get("https://tidesandcurrents.noaa.gov/noaatidepredictions/NOAATidesFacade.jsp?datatype=Annual+XML&Stationid=" + station_id) # 2017 version
+    location_xml = requests.get("https://tidesandcurrents.noaa.gov/cgi-bin/predictiondownload.cgi?&stnid=" + station_id + "&threshold=&thresholdDirection=greaterThan&bdate=2018&timezone=LST/LDT&datum=MLLW&clock=12hour&type=xml&annual=true") # 2018 version
     parse_xml(location_xml.text, latitude, longitude, station_id)
 
     # annual_forecast = parse_xml(location_xml.text, latitude, longitude, station_id)
@@ -181,20 +182,37 @@ def main(station_id, latitude, longitude):
 
 # mid_april_weekend_states = ["Alabama", "Mississippi", "Louisiana", "Texas", "Maine", "New Hampshire", "Massachusetts", "Rhode Island", "Connecticut", "New York", "New Jersey", "Delaware", "Pennsylvania", "Maryland", "Virginia", "Washington DC", "North Carolina", "South Carolina", "Georgia", "Florida"]
 
-for s in mid_april_weekend_states:
-    current_state = s
-    locs = Locations.objects.filter(state=current_state)
+# mid_april_weekend_states = ["Oregon"]
 
-    location_index = 0
+# for s in mid_april_weekend_states:
+    # current_state = s
+    # locs = Locations.objects.filter(state=current_state)
 
-    for x in locs:
-        location_start_time = time.time()
-        main(x.id, x.latitude, x.longitude)
-        location_index += 1
-        print("{} seconds elapsed while parsing {}".format(time.time() - location_start_time, x.name))
 
-    print("{} locations parsed".format(location_index))
-    print("{} total seconds elapsed".format(time.time() - start_time))
+#######################################################
+## NEW LOOP FOR GRABBING ALL TIDES FOR ALL LOCATIONS ##
+#######################################################
 
-completed_states = ["Oregon", "Washington", "California", "Hawaii", "Alaska", "Alabama", "Mississippi", "Louisiana", "Texas", "Maine", "New Hampshire", "Massachusetts", "Rhode Island", "Connecticut", "New York", "New Jersey", "Delaware", "Pennsylvania", "Maryland", "Virginia", "Washington DC", "North Carolina", "South Carolina", "Georgia", "Florida"]
+locs = Locations.objects.all()
+location_index = 0
+
+for x in locs:
+    # set time to test program speed
+    location_start_time = time.time()
+
+    # clear current 2018 tides if present
+    loc_tides = Tides.objects.filter(location=x)
+    for loc_tide in loc_tides:
+        if loc_tide.datetime.year == 2018:
+            loc_tide.delete()
+
+    # run main tide function on this location
+    main(x.id, x.latitude, x.longitude)
+    location_index += 1
+    print("{} seconds elapsed while parsing {}".format(time.time() - location_start_time, x.name))
+
+print("{} locations parsed".format(location_index))
+print("{} total seconds elapsed".format(time.time() - start_time))
+
+# completed_states = ["Oregon", "Washington", "California", "Hawaii", "Alaska", "Alabama", "Mississippi", "Louisiana", "Texas", "Maine", "New Hampshire", "Massachusetts", "Rhode Island", "Connecticut", "New York", "New Jersey", "Delaware", "Pennsylvania", "Maryland", "Virginia", "Washington DC", "North Carolina", "South Carolina", "Georgia", "Florida"]
 # locs = Locations.objects.all().exclude(state__in=completed_states)
