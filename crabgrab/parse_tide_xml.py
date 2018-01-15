@@ -183,7 +183,7 @@ def main(station_id, latitude, longitude, state):
 ## NEW LOOP FOR GRABBING ALL TIDES FOR ALL LOCATIONS ##
 #######################################################
 
-locs = Locations.objects.filter(state="Oregon")
+locs = Locations.objects.all()
 location_index = 0
 
 for x in locs:
