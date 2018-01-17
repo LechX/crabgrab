@@ -183,26 +183,38 @@ def main(station_id, latitude, longitude, state):
 ## NEW LOOP FOR GRABBING ALL TIDES FOR ALL LOCATIONS ##
 #######################################################
 
-locs = Locations.objects.all()
+locs = Locations.objects.filter(state="Oregon")
+# locs = Locations.objects.all()
 location_index = 0
+location_tide_counts = []
 
 for x in locs:
-    # set time to test program speed
-    location_start_time = time.time()
-
-    # clear current 2018 tides if present
     loc_tides = Tides.objects.filter(location=x)
     for loc_tide in loc_tides:
         if loc_tide.datetime.year == 2018:
-            loc_tide.delete()
+            location_index += 1
+    if location_index > 5:
+        print(x)
+        print(location_index)
+    location_index = 0
 
-    # run main tide function on this location
-    main(x.id, x.latitude, x.longitude, x.state)
-    location_index += 1
-    print("{} seconds elapsed while parsing {}".format(time.time() - location_start_time, x.name))
-
-print("{} locations parsed".format(location_index))
-print("{} total seconds elapsed".format(time.time() - start_time))
+# for x in locs:
+#     # set time to test program speed
+#     location_start_time = time.time()
+#
+#     # clear current 2018 tides if present
+#     loc_tides = Tides.objects.filter(location=x)
+#     for loc_tide in loc_tides:
+#         if loc_tide.datetime.year == 2018:
+#             loc_tide.delete()
+#
+#     # run main tide function on this location
+#     main(x.id, x.latitude, x.longitude, x.state)
+#     location_index += 1
+#     print("{} seconds elapsed while parsing {}".format(time.time() - location_start_time, x.name))
+#
+# print("{} locations parsed".format(location_index))
+# print("{} total seconds elapsed".format(time.time() - start_time))
 
 # completed_states = ["Oregon", "Washington", "California", "Hawaii", "Alaska", "Alabama", "Mississippi", "Louisiana", "Texas", "Maine", "New Hampshire", "Massachusetts", "Rhode Island", "Connecticut", "New York", "New Jersey", "Delaware", "Pennsylvania", "Maryland", "Virginia", "Washington DC", "North Carolina", "South Carolina", "Georgia", "Florida"]
 # locs = Locations.objects.all().exclude(state__in=completed_states)
