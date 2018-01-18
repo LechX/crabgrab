@@ -195,6 +195,7 @@ for x in locs:
             location_index += 1
     if location_index > 5:
         print(x)
+        print(x.id)
         print(location_index)
     location_index = 0
 
